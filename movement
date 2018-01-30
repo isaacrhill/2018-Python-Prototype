@@ -9,7 +9,7 @@ def drive(time=c.forward_one_inch,drive_left_motor_power=100,drive_right_motor_p
     motor(c.left_motor,0)
     motor(c.right_motor,0)
         
-def wait(time):
+def wait(time=1000):
     motor(c.left_motor,0)
     motor(c.right_motor,0)
     msleep(time)
