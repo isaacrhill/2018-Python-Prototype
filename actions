@@ -3,6 +3,15 @@ import constants as c
 import movement as m
 import linefollow as f
 
+def EvanIsaac():
+    f.drive_until_line(10)
+    m.drive(1500)
+    m.turn_right()
+    f.lfollow_right_bstop(100)
+    m.drive(500)
+    m.turn_left()
+    f.both_lfollow(5)
+
 def calib():
     m.drive()
     msleep(500)
