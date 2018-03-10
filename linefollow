@@ -7,9 +7,47 @@ def depth_sensed():
 
 def BlackRight():
     return(analog(c.right_tophat)>c.right_tophat_bw)
+        
+def NotBlackRight():
+    return(analog(c.right_tophat)<c.right_tophat_bw)
   
 def BlackLeft():
     return(analog(c.left_tophat)>c.left_tophat_bw)
+     
+def NotBlackLeft():
+    return(analog(c.left_tophat)<c.left_tophat_bw)
+        
+def both_lfollow(time):
+    print "Starting lfollow_right_bstop()"
+    sec = seconds() + time
+    while seconds() < sec:
+        print "Right tophat: %d"%analog(c.right_tophat)
+        print "Left tophat: %d"%analog(c.left_tophat)
+        if BlackRight() and BlackLeft():
+            m.drive(1000)
+            m.turn_right()
+            print "Both Black"
+        elif BlackRight() and NotBlackLeft():
+            mav(c.left_motor,1000)
+            print "Black right, not black left"
+        elif NotBlackRight() and BlackLeft():
+            mav(c.right_motor,-1000)
+            print "Not black right, yes black left"
+        elif NotBlackRight and NotBlackRight():
+            mav(c.right_motor,-1000)
+            mav(c.left_motor,1000)
+            print "Neither black" 
+        msleep(30)
+        mav(c.left_motor,0)
+        mav(c.right_motor,0)
+        
+def drive_until_line(time):
+    print "Starting drive_until_line()"
+    sec = seconds() + time
+    while seconds() < sec and analog(c.left_tophat)<c.left_tophat_bw:
+        print "Tophat: %d"%analog(c.left_tophat)
+        m.drive(time)
+    print "Line sensed, stopped driving"
         
 def lfollow_right_bstop(time):
     print "Starting lfollow_right_bstop()"
@@ -17,10 +55,10 @@ def lfollow_right_bstop(time):
     while seconds() < sec and analog(c.left_tophat)<c.left_tophat_bw:
         print "Tophat: %d"%analog(c.right_tophat)
         if BlackRight():
-            mav(c.left_motor,1000)
+            mav(c.right_motor,-1000)
             print "Black"
         elif not BlackRight():
-            mav(c.right_motor,-1000)
+            mav(c.left_motor,1000)
             print "White!"
         msleep(30)
         mav(c.left_motor,0)
