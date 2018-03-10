@@ -1,8 +1,8 @@
 from wallaby import *
 left_motor=3
 right_motor=2
-right_turn=427
-left_turn=418
+right_turn=580
+left_turn=580
 forward_one_inch=500
 backwards_one_inch=500
 arm_servo=1
