@@ -17,7 +17,7 @@ def BlackLeft():
 def NotBlackLeft():
     return(analog(c.left_tophat)<c.left_tophat_bw)
         
-def both_lfollow(time):
+def both_lfollow(time): #line follow with both tophats until time is reached
     print "Starting lfollow_right_bstop()"
     sec = seconds() + time
     while seconds() < sec:
@@ -41,7 +41,7 @@ def both_lfollow(time):
         mav(c.left_motor,0)
         mav(c.right_motor,0)
         
-def drive_until_line(time):
+def drive_until_line(time): #drive until left tophat senses line or time is reached
     print "Starting drive_until_line()"
     sec = seconds() + time
     while seconds() < sec and analog(c.left_tophat)<c.left_tophat_bw:
@@ -49,7 +49,7 @@ def drive_until_line(time):
         m.drive(time)
     print "Line sensed, stopped driving"
         
-def lfollow_right_bstop(time):
+def lfollow_right_bstop(time): #line follow with the right tophat until left tophat senses black or time is reached
     print "Starting lfollow_right_bstop()"
     sec = seconds() + time
     while seconds() < sec and analog(c.left_tophat)<c.left_tophat_bw:
@@ -64,7 +64,7 @@ def lfollow_right_bstop(time):
         mav(c.left_motor,0)
         mav(c.right_motor,0)
 
-def lfollow_left_bstop(time):
+def lfollow_left_bstop(time): #line follow with the left tophat until right tophat senses black or time is reached
     print "Starting lfollow_left_bstop()"
     sec = seconds() + time
     while seconds() < sec and analog(c.right_tophat)<c.right_tophat_bw:
@@ -80,7 +80,7 @@ def lfollow_left_bstop(time):
         mav(c.right_motor,0)
         
         
-def depth_line_follow_right():
+def depth_line_follow_right(): #line follow with the right tophat until depth is sensed, no time involved
     print "Starting line_follow_right()"
     while analog(c.depth_sensor)<c.depth_mid:
         print "Tophat: %d"%analog(c.left_tophat)
@@ -96,12 +96,12 @@ def depth_line_follow_right():
         mav(c.right_motor,0)
                 
 
-def line_follow_right(time):
+def line_follow_right(time): #line follow with the right tophat until depth is sensed or the time is reached
     print "Starting line_follow_right()"
    #while digital(c.bump_sensor)==0:
     sec = seconds() + time
     while seconds() < sec and analog(c.depth_sensor)<c.depth_mid:
-        print "Read: %d"%analog(c.left_tophat)
+        print "Read: %d"%analog(c.right_tophat)
         if BlackRight():
             mav(c.left_motor,1000)
             print "Black"
@@ -112,7 +112,7 @@ def line_follow_right(time):
         mav(c.left_motor,0)
         mav(c.right_motor,0)
                 
-def b_line_follow_right(time):
+def b_line_follow_right(time): #line follow with the right tophat as long as no depth is sensed or until time is reached
     print "Starting line_follow_right()"
     sec = seconds() + time
     while seconds() < sec and analog(c.left_tophat)<c.left_tophat_bw:
@@ -130,7 +130,7 @@ def b_line_follow_right(time):
         mav(c.left_motor,0)
         mav(c.right_motor,0)
 
-def b_line_follow_left(time):
+def b_line_follow_left(time):  #line follow with the left tophat as long as no depth is sensed or until time is reached
     print "Starting line_follow_left()"
     sec = seconds() + time
     while seconds() < sec and analog(c.right_tophat)<c.right_tophat_bw:
@@ -149,7 +149,7 @@ def b_line_follow_left(time):
         mav(c.right_motor,0)
 
                 
-def line_follow_left_time():
+def line_follow_left_time(): #line follow with the left tophat until depth is sensed or the time is reached
     print "Starting line_follow_left()"
     sec = seconds() + time
     while seconds() < sec:
